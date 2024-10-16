@@ -14,8 +14,8 @@ envdtap: acc
 
 image:
   repository:
-    nginx: acring.azurecr.io/coffeebean-nginx
-    php: acring.azurecr.io/coffeebean-phpfpm
+    nginx: nginx:1.27.2-alpine-slim
+    php: php:8.2-fpm
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
