@@ -1,0 +1,9 @@
+FROM nginx:1.27.2-alpine-slim
+
+RUN apk update --no-cache && apk upgrade --no-cache --available && \
+apk add --no-cache apache2-utils
+
+COPY build/root /
+COPY src /var/www/html
+
+RUN sed -i 's/\r$//' /usr/local/bin/docker-entrypoint.sh

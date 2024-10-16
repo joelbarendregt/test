@@ -1,0 +1,20 @@
+ingressVersion: nginx
+envdtap: drs
+
+loadbalancerip: "13.94.97.100"
+
+ingress:
+  - rules:
+      - host: coffeebean-drs.slvmcp.nl
+        paths:
+          - backend: 
+            servicename: coffeebean
+            serviceport: '80'
+            path: /
+
+tls:
+  hosts:
+  - coffeebean-drs.slvmcp.nl
+
+ingressDomains:
+  - coffeebean-drs.slvmcp.nl

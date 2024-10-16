@@ -1,0 +1,18 @@
+ingressVersion: nginx
+envdtap: prod
+
+ingress:
+  - rules:
+      - host: prd-coffeebean.slvmcp.nl
+        paths:
+          - backend: 
+            servicename: coffeebean
+            serviceport: '80'
+            path: /
+
+tls:
+  hosts:
+  - prd-coffeebean.slvmcp.nl
+
+ingressDomains:
+  - prd-coffeebean.slvmcp.nl            

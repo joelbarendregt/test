@@ -1,0 +1,17 @@
+{{- $v := .Files.Get (printf "%s/%s.yaml" .Values.env.global.envsdir .Values.env.override.environment ) | fromYaml -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: coffeebean
+  namespace: coffeebean-{{ $v.envdtap | default .Values.envdtap }}
+  labels:
+    {{- include "coffeebean.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.targetPort }}
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "coffeebean.selectorLabels" . | nindent 4 }}

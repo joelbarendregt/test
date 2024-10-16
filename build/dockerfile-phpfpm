@@ -1,0 +1,18 @@
+FROM php:8.2-fpm
+
+# Needed for e2j2
+# ENV E2J2_TWOPASSRENDERING 'true'
+# ENV E2J2_SEARCHLIST=/var/www/html
+
+ENV COMPOSER_ALLOW_SUPERUSER=1
+
+RUN apk update && apk upgrade --available
+
+COPY --chown=www-data:www-data src /var/www/html
+
+RUN docker-php-ext-install bcmath opcache sockets \
+ && apk add --no-cache mysql-client zlib-dev libpng-dev libwebp-dev libwebp-tools libjpeg-turbo-dev\
+ && docker-php-ext-configure gd --with-webp --with-jpeg\
+ && docker-php-ext-install gd \
+ && cd /var/www/html \
+ && chown -R www-data:www-data /var/www/html

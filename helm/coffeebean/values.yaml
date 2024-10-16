@@ -1,0 +1,141 @@
+# Default values for coffeebean.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+env:
+  global:
+    envsdir: envs
+  override:
+    environment: acc
+
+envdtap: acc
+
+image:
+  repository:
+    nginx: acring.azurecr.io/coffeebean-nginx
+    php: acring.azurecr.io/coffeebean-phpfpm
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+## Persist data to a persitent volume
+persistence:
+  enabled: true
+  ## If defined, volume.beta.kubernetes.io/storage-class: <storageClass>
+  ## Default: volume.alpha.kubernetes.io/storage-class: default
+  ##
+  storageClass: azurefile
+  accessMode: ReadWriteMany
+  size: 1Gi
+
+imagePullSecrets: 
+  - name: docker-pull
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+configmap:
+  enabled: true
+  list:
+    http_proxy: http://proxy.service.consul:8080
+    https_proxy: http://proxy.service.consul:8080
+    no_proxy: '.svc.cluster.local'
+
+autoscaling:
+  enabled: true
+  targetCPUUtilizationPercentage: '75'
+  targetMemoryUtilizationPercentage: '75'
+  minReplicas: 1
+  maxReplicas: 3
+
+securityContextNginx:
+  capabilities:
+    drop:
+    - ALL
+  runAsNonRoot: true
+  runAsUser: 100
+  allowPrivilegeEscalation: false
+
+securityContextPhp:
+  capabilities:
+    drop:
+    - ALL
+  runAsNonRoot: true
+  runAsUser: 82
+  allowPrivilegeEscalation: false
+
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8080
+
+ingress:
+  enabled: true
+  voyager:
+    annotations:
+      ingress.appscode.com/type: LoadBalancer
+      ingress.appscode.com/keep-source-ip: "true"
+  nginx:
+    annotations:
+      #nginx.ingress.kubernetes.io/rewrite-target: /
+      nginx.ingress.kubernetes.io/proxy-body-size: "0"
+      cert-manager.io/issuer: letsencrypt-prod
+      acme.cert-manager.io/http01-edit-in-place: "true"
+  hosts:
+    - host: coffeebean-acc.slvmcp.nl
+      path: /
+  tls:
+    - secretName: tls-coffeebean
+      hosts:
+      - coffeebean-acc.slvmcp.nl
+  rules:
+    - host: coffeebean
+      paths:
+        serviceName: coffeebean
+        servicePort: 80
+        path: /
+
+resources: 
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+   limits:
+     cpu: 100m
+     memory: 128Mi
+   requests:
+     cpu: 100m
+     memory: 128Mi
+
+## Install Default RBAC roles and bindings
+rbac:
+  create: true
+
+#autoscaling:
+#  enabled: false
+#  minReplicas: 1
+#  maxReplicas: 100
+#  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

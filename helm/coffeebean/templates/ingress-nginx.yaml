@@ -1,0 +1,48 @@
+{{- $v := .Files.Get (printf "%s/%s.yaml" .Values.env.global.envsdir .Values.env.override.environment ) | fromYaml -}}
+{{- $ingressVersion := $v.ingressVersion | default "voyager" }}
+{{- if eq $ingressVersion "nginx" }}
+{{- $fullName := include "coffeebean.fullname" . -}}
+{{- $labels := include "coffeebean.labels" . -}}
+{{- $defaultPort := .Values.service.port -}}
+{{- $envdtap := $v.envdtap | default .Values.envdtap -}}
+{{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
+apiVersion: networking.k8s.io/v1
+{{- else -}}
+apiVersion: extensions/v1beta1
+{{- end }}
+kind: Ingress
+metadata:
+  name: ingress-coffeebean
+  namespace: "coffeebean-{{ $envdtap }}"
+  {{- with .Values.ingress.nginx.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  labels:
+    {{- $labels | nindent 4 }}
+spec:
+  ingressClassName: nginx-coffeebean
+  tls:
+    {{- with $v.tls.hosts }}
+  - hosts:
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
+    secretName: tls-certificate
+  rules:
+  {{- range $v.ingress | default .Values.ingress }}
+  {{- range .rules }}
+  - host: {{ .host | quote }}
+    http:
+      paths:
+      {{- range .paths }}  
+        - path: {{ .path }}
+          pathType: Prefix
+          backend:  
+            service:
+              name: {{ .servicename | default $fullName }}
+              port:
+                number: {{ .serviceport | default $defaultPort }}
+      {{- end }}  
+  {{- end }}
+{{- end }}
+{{- end }}

@@ -1,0 +1,18 @@
+ingressVersion: nginx
+envdtap: acc
+
+ingress:
+  - rules:
+      - host: acc-coffeebean.slvmcp.nl
+        paths:
+          - backend: 
+            servicename: coffeebean
+            serviceport: '80'
+            path: /
+
+tls:
+  hosts:
+  - acc-coffeebean.slvmcp.nl
+
+ingressDomains:
+  - acc-coffeebean.slvmcp.nl
