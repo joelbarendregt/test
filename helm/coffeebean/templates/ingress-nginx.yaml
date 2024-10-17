@@ -17,6 +17,7 @@ metadata:
   {{- with .Values.ingress.nginx.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
+    kubernetes.io/ingress.class: "azure/application-gateway"
   {{- end }}
   labels:
     {{- $labels | nindent 4 }}
