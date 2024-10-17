@@ -91,11 +91,11 @@ ingress:
     annotations:
       ingress.appscode.com/type: LoadBalancer
       ingress.appscode.com/keep-source-ip: "true"
-  nginx:
-    annotations:
-      #nginx.ingress.kubernetes.io/rewrite-target: /
-      cert-manager.io/issuer: letsencrypt-prod
-      kubernetes.io/ingress.class: "azure/application-gateway"
+  
+  annotations:
+    #nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/issuer: letsencrypt-prod
+    kubernetes.io/ingress.class: "azure/application-gateway"
   hosts:
     - host: coffeebean-acc.slvmcp.nl
       path: /
