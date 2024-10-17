@@ -95,7 +95,6 @@ ingress:
     annotations:
       #nginx.ingress.kubernetes.io/rewrite-target: /
       cert-manager.io/issuer: letsencrypt-prod
-      acme.cert-manager.io/http01-edit-in-place: "true"
   hosts:
     - host: coffeebean-acc.slvmcp.nl
       path: /
