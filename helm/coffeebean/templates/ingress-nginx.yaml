@@ -21,7 +21,6 @@ metadata:
   labels:
     {{- $labels | nindent 4 }}
 spec:
-  ingressClassName: nginx-coffeebean
   tls:
     {{- with $v.tls.hosts }}
   - hosts:
