@@ -3,7 +3,7 @@ envdtap: acc
 
 ingress:
   - rules:
-      - host: acc-coffeebean.slvmcp.nl
+      - host: testapp-acc.solvops.solvinity.com
         paths:
           - backend: 
             servicename: coffeebean
@@ -12,7 +12,7 @@ ingress:
 
 tls:
   hosts:
-  - acc-coffeebean.slvmcp.nl
+  - testapp-acc.solvops.solvinity.com
 
 ingressDomains:
-  - acc-coffeebean.slvmcp.nl
+  - testapp-acc.solvops.solvinity.com
