@@ -14,7 +14,7 @@ kind: Ingress
 metadata:
   name: ingress-coffeebean
   namespace: "coffeebean-{{ $envdtap }}"
-  {{- with .Values.ingress.nginx.annotations }}
+  {{- with .Values.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
