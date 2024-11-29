@@ -30,10 +30,10 @@ persistence:
   accessMode: ReadWriteMany
   size: 1Gi
 
-imagePullSecrets: 
-  - name: docker-pull
-nameOverride: ""
-fullnameOverride: ""
+#imagePullSecrets: 
+#  - name: docker-pull
+#nameOverride: ""
+#fullnameOverride: ""
 
 serviceAccount:
   # Specifies whether a service account should be created
