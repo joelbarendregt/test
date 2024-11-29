@@ -6,5 +6,7 @@ apk add --no-cache apache2-utils
 COPY build/root /
 COPY src /var/www/html
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+# Set the entrypoint
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 
 RUN sed -i 's/\r$//' /usr/local/bin/docker-entrypoint.sh
