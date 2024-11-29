@@ -97,12 +97,12 @@ ingress:
     cert-manager.io/issuer: letsencrypt-prod
     kubernetes.io/ingress.class: "azure/application-gateway"
   hosts:
-    - host: coffeebean-acc.slvmcp.nl
+    - host: testapp-acc.solvops.solvinity.com
       path: /
   tls:
     - secretName: tls-coffeebean
       hosts:
-      - coffeebean-acc.slvmcp.nl
+      - testapp-acc.solvops.solvinity.com
   rules:
     - host: coffeebean
       paths:
