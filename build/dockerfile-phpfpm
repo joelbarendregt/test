@@ -1,4 +1,4 @@
-FROM ghcr.io/joelbarendregt/coffeebean-phpfpm:3.6.32
+FROM ghcr.io/joelbarendregt/php8.1-fpm:latest
 
 # Needed for e2j2
 # ENV E2J2_TWOPASSRENDERING 'true'
