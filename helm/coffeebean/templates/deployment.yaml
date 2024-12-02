@@ -33,6 +33,7 @@ spec:
           securityContext:
             {{- toYaml .Values.securityContextNginx | nindent 12 }}
           image: "{{ .Values.image.repository.nginx }}"
+          command: ["/usr/local/bin/docker-entrypoint.sh"]
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
