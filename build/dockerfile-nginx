@@ -1,4 +1,5 @@
-FROM ghcr.io/joelbarendregt/nginx:latest
+FROM nginx:latest
+#FROM ghcr.io/joelbarendregt/nginx:latest
 
 RUN apk update --no-cache && apk upgrade --no-cache --available && \
 apk add --no-cache apache2-utils
