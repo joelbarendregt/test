@@ -1,19 +1,14 @@
-{{- $v := .Files.Get (printf "%s/%s.yaml" .Values.env.global.envsdir .Values.env.override.environment ) | fromYaml -}}
 apiVersion: cert-manager.io/v1
-kind: Issuer
+kind: ClusterIssuer
 metadata:
-  name: letsencrypt-prod
-  namespace: coffeebean-{{ $v.envdtap }}
-  labels:
-    {{- include "coffeebean.labels" . | nindent 4 }}  
+  name: coffeebean-clusterissuer
 spec:
   acme:
-    # Prod API
     server: https://acme-v02.api.letsencrypt.org/directory
-    email: ingmarketing@solvinity.com
+    email: test@test.com
     privateKeySecretRef:
-      name: letsencrypt-prod
+      name: coffeebean-tls-secret
     solvers:
     - http01:
-       ingress:
-         class: nginx-coffeebean
+        ingress:
+          class: azure/application-gateway
