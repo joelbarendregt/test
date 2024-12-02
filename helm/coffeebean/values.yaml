@@ -96,6 +96,7 @@ ingress:
     #nginx.ingress.kubernetes.io/rewrite-target: /
     cert-manager.io/issuer: coffeebean-clusterissuer
     kubernetes.io/ingress.class: "azure/application-gateway"
+    appgw.ingress.kubernetes.io/ssl-redirect: 'true'
   hosts:
     - host: testapp-acc.solvops.solvinity.com
       path: /
