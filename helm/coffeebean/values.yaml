@@ -14,7 +14,7 @@ envdtap: acc
 
 image:
   repository:
-    nginx: nginx:latest
+    nginx: ghcr.io/joelbarendregt/nginx:latest
     php: ghcr.io/joelbarendregt/php8.1-fpm:latest
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
