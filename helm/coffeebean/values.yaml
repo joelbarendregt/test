@@ -100,7 +100,7 @@ ingress:
     - host: testapp-acc.solvops.solvinity.com
       path: /
   tls:
-    - secretName: tls-coffeebean
+    - secretName: coffeebean-tls-secret
       hosts:
       - testapp-acc.solvops.solvinity.com
   rules:
