@@ -26,7 +26,7 @@ spec:
   - hosts:
       {{- toYaml . | nindent 4 }}
     {{- end }}
-    secretName: coffeebean-tls-secret-ssfjw
+    secretName: coffeebean-tls-secret
   rules:
   {{- range $v.ingress | default .Values.ingress }}
   {{- range .rules }}
