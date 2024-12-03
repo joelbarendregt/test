@@ -94,7 +94,7 @@ ingress:
   
   annotations:
     #nginx.ingress.kubernetes.io/rewrite-target: /
-    cert-manager.io/clusterissuer: coffeebean-clusterissuer
+    cert-manager.io/cluster-issuer: coffeebean-clusterissuer
     kubernetes.io/ingress.class: "azure/application-gateway"
     appgw.ingress.kubernetes.io/ssl-redirect: 'true'
   hosts:
