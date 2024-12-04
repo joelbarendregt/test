@@ -61,7 +61,7 @@ autoscaling:
   targetCPUUtilizationPercentage: '75'
   targetMemoryUtilizationPercentage: '75'
   minReplicas: 1
-  maxReplicas: 3
+  maxReplicas: 5
 
 securityContextNginx:
   capabilities:
