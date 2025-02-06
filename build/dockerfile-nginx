@@ -1,5 +1,5 @@
 #FROM nginx:latest
-FROM ghcr.io/joelbarendregt/nginx:1.0.4713
+FROM ghcr.io/joelbarendregt/coffeebean-nginx:3.12.0
 
 RUN apk update --no-cache && apk upgrade --no-cache --available && \
 apk add --no-cache apache2-utils dos2unix
